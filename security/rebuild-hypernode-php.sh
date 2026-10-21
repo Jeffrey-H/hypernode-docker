@@ -11,12 +11,13 @@ printf '%s  %s\n' "$PATCH_PHP_SHA256" /tmp/php.tar.xz | sha256sum -c -
 mkdir /tmp/php-source
 tar -xJf /tmp/php.tar.xz -C /tmp/php-source --strip-components=1
 cd /tmp/php-source
+export CFLAGS='-O2 -fstack-protector-strong -fPIC' LDFLAGS='-Wl,-O1 -Wl,-z,relro -Wl,-z,now'
 ./configure --prefix="/opt/qualide/php/$PHP_BRANCH" \
   --with-config-file-path="/etc/php/$PHP_BRANCH/cli" \
   --with-config-file-scan-dir="/etc/php/$PHP_BRANCH/cli/conf.d" \
   --disable-all --enable-cli --disable-cgi --disable-phpdbg \
   --enable-fpm --with-fpm-user=app --with-fpm-group=app \
-  --enable-filter --enable-libxml --with-openssl --enable-pcntl \
+  --enable-filter --with-libxml --with-external-pcre --with-openssl --enable-pcntl \
   --enable-session --with-sodium --with-zlib --with-password-argon2 \
   --enable-opcache=shared
 make -j4

@@ -4,7 +4,7 @@ USER root
 # Buster security packages are archived. Keep signature verification enabled.
 RUN sed -i 's|http://security.debian.org|http://archive.debian.org/debian-security|' /etc/apt/sources.list.d/hypernode.sources \
     && apt-get -o Acquire::Check-Valid-Until=false update \
-    && apt-get install -y --no-install-recommends make gcc pkg-config libxml2-dev libssl-dev libsodium-dev libargon2-dev zlib1g-dev
+    && apt-get install -y --no-install-recommends make gcc pkg-config libxml2-dev libpcre2-dev libssl-dev libsodium-dev libargon2-dev zlib1g-dev
 ARG PHP_BRANCH=8.3
 ARG PATCH_PHP_VERSION=8.3.36
 ARG PATCH_PHP_SHA256=dd54693aa334c5c4d72e9aee96b082c2473750a18a6c1d105789c93a3b1692fd
