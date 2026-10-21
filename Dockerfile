@@ -20,6 +20,8 @@ COPY --from=builder /usr/sbin/php-fpm${PHP_BRANCH} /usr/sbin/php-fpm${PHP_BRANCH
 COPY --from=builder /usr/lib/php/ /usr/lib/php/
 COPY --from=builder /etc/php/ /etc/php/
 COPY files/my_init.d/59_php_upload_progress.sh /etc/my_init.d/59_php_upload_progress.sh
+COPY security/58_verify_patched_php.sh /etc/my_init.d/58_verify_patched_php.sh
 RUN chmod 755 /etc/my_init.d/59_php_upload_progress.sh \
+    /etc/my_init.d/58_verify_patched_php.sh \
     && /etc/my_init.d/59_php_upload_progress.sh \
     && test "$(/usr/bin/php${PHP_BRANCH} -r 'echo PHP_VERSION;')" = "$PATCH_PHP_VERSION"
